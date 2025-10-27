@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/pp/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Pretend Pal - A Parody Self-Help App">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Pretend Pal">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Pretend Pal</title>
+  <link rel="manifest" href="manifest.json">
+  
+  <style>
+    body { 
+      margin: 0; 
+      padding: 0; 
+      background: #421c76;
+    }
+    #loading { 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh; 
+      font-family: Arial, sans-serif;
+      color: #DAA4F6;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">Loading Pretend Pal...</div>
+  
+  <!-- Load Flutter bootstrap first -->
+  <script src="flutter_bootstrap.js"></script>
+  <script>
+    // Wait for the Flutter bootstrap to set everything up
+    window.addEventListener('load', function(ev) {
+      // Use the serviceWorkerVersion from flutter_bootstrap.js if available
+      const serviceWorkerConfig = window.serviceWorkerVersion ? {
+        serviceWorker: {
+          serviceWorkerVersion: window.serviceWorkerVersion,
+        }
+      } : null;
+
+      if (window._flutter && window._flutter.loader) {
+        _flutter.loader.loadEntrypoint(serviceWorkerConfig)
+          .then(function(engineInitializer) {
+            return engineInitializer.initializeEngine();
+          })
+          .then(function(appRunner) {
+            return appRunner.runApp();
+          })
+          .catch(function(error) {
+            console.error('Error starting Flutter app:', error);
+            document.getElementById('loading').textContent = 'Error loading app';
+          });
+      } else {
+        console.error('Flutter loader not found');
+        document.getElementById('loading').textContent = 'Error: Flutter not loaded';
+      }
+    });
+  </script>
+</body>
+</html>
